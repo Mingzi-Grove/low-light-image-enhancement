@@ -1,0 +1,21 @@
+# clone 后就能重建的
+/.pytest_cache/
+/.venv/
+*.egg-info/
+__pycache__/
+.ipynb_checkpoints/
+
+# 个人配置文件
+.vscode/
+
+# 数据集和大文件
+/data/
+
+# CLI 工具的输出图像
+/examples/output/*
+!/examples/output/.gitkeep
+
+# 不适合公开的笔记草稿
+/notebooks/learn-pytest/
+/notebooks/flowtest.ipynb
+
