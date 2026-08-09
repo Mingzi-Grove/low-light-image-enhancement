@@ -16,6 +16,4 @@ __pycache__/
 !/examples/output/.gitkeep
 
 # 不适合公开的笔记草稿
-/notebooks/learn-pytest/
-/notebooks/flowtest.ipynb
-
+/notebooks/scratch/

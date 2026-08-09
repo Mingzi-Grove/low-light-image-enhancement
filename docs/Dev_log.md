@@ -136,11 +136,16 @@ Pipeline 包括整个处理流程
 测试结果表明转换链误差的主要来源是 cv2.cvtColor，在 bgr f32 <-> lab f32 最大误差有 0.0037，平均误差 0.0009，理论上最大误差要小于 0.0019 才能实现 bgr u8 无损，目前的误差造成 bgr u8 一个像素级的误差。
 
 ## log                  | 2026.8.8
-用 logger. 替换了模块中的 print
+用 logger. 替换了模块中的 print。
 
-# README.md             | 2026.8.8
-修改了 README 文件，写得更清楚了
+## README.md             | 2026.8.8
+修改了 README 文件，写得更清楚了。
 
-# .gitignore            | 2026.8.9
-重写 .gitignore，做合适的筛选
+## .gitignore            | 2026.8.9
+重写 .gitignore，做了合适的筛选。
 
+## docs/releases/         | 2026.8.9
+新建了这个文件夹，用于存放版本说明文档，现在已经有 `v0.0.1.md` 在里面了。
+
+## 项目结构调整           | 2026.8.9
+为了方便以后添加一些新的“草稿笔记”，我在 `notebooks/` 下新建了一个 `/scratch` 文件夹，我在里面新建了 `git.md` ，用于记录学习 git 的笔记，还把原来的 `flowtest.ipynb` 和 `learn-pytest/` 一同放进去了，这样在 .gitignore 里就只需要写 /notebooks/scratch/，这样就不需要挨个枚举草稿笔记了。`.gitignore` 已做同步更新。
