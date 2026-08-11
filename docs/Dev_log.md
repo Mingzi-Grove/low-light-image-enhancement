@@ -149,3 +149,12 @@ Pipeline 包括整个处理流程
 
 ## 项目结构调整           | 2026.8.9
 为了方便以后添加一些新的“草稿笔记”，我在 `notebooks/` 下新建了一个 `/scratch` 文件夹，我在里面新建了 `git.md` ，用于记录学习 git 的笔记，还把原来的 `flowtest.ipynb` 和 `learn-pytest/` 一同放进去了，这样在 .gitignore 里就只需要写 /notebooks/scratch/，这样就不需要挨个枚举草稿笔记了。`.gitignore` 已做同步更新。
+
+## 添加亮度增益算法 HE、CLAHE   | 2026.8.11
+- 新增 `algorithms/histogram.py`，源代码，包括 HE 和 CLAHE 两个方法
+- 更新 `algorithms/__init__.py`，新增声明 `from . import histogram` 
+- 修改 `lightness.boost()` 和 `gamma()`，参数调整
+    - `boost(channel, gamma: float = 0.5) -> boost(channel)`
+    - `gamma(img_gray) -> gamma(channel, exponent: float = 0.5)`
+- 更新 `notebooks/Algorithms/Histogram/`，相关学习笔记
+- 更新 `Dev_log.md`

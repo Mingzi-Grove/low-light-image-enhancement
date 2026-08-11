@@ -14,15 +14,14 @@ class BoostResult(NamedTuple):
     L_boosted: numpy.ndarray
     delta_L: numpy.ndarray
 
-def boost(L_layer: numpy.ndarray, gamma: float = 0.5) -> BoostResult:
+def boost(L_layer: numpy.ndarray) -> BoostResult:
     """
     Args:
         L_layer (numpy.ndarray): Expected L layer in LCH space, float32, L[0, 1].
-        gamma (float, optional): Gamma value for boost. Defaults to 0.5.
     Returns:
         BoostResult: L layer after boosting and the delta map (boosted - original).
     """
-    # 目前用 Gamma 算法，后续可扩展为可选不同的增益算法
-    L_boosted = algorithms.gamma(L_layer, gamma)
+    L_boosted = algorithms.gamma(L_layer)
     delta_L = L_boosted - L_layer
     return BoostResult(L_boosted, delta_L)
+    

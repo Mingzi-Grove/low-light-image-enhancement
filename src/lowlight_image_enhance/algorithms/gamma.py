@@ -2,13 +2,14 @@ import numpy
 
 # Gamma: img_gray float32 [0, 1] -> img_gray float32 [0, 1], Nonlinear mapping.
 
-def gamma(img_gray: numpy.ndarray, gamma: float) -> numpy.ndarray:
+def gamma(channel: numpy.ndarray, exponent: float = 0.5) -> numpy.ndarray:
     """
     Args:
-        img_gray (numpy.ndarray): Expected img_gray, float32, [0, 1].
-        gamma (float): Gamma value.
+        channel (numpy.ndarray): Expected a channel of an image, float32, [0, 1].
+        exponent (float): Gamma value, defaults to 0.5.
     Returns:
         numpy.ndarray: img_gray, float32, [0, 1].
     """
-    gamma_img = numpy.power(img_gray, gamma)
+    gamma_img = numpy.power(channel, exponent)
     return gamma_img
+    
