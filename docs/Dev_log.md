@@ -138,19 +138,19 @@ Pipeline 包括整个处理流程
 ## log                  | 2026.8.8
 用 logger. 替换了模块中的 print。
 
-## README.md             | 2026.8.8
+## README.md            | 2026.8.8
 修改了 README 文件，写得更清楚了。
 
-## .gitignore            | 2026.8.9
+## .gitignore           | 2026.8.9
 重写 .gitignore，做了合适的筛选。
 
-## docs/releases/         | 2026.8.9
+## docs/releases/        | 2026.8.9
 新建了这个文件夹，用于存放版本说明文档，现在已经有 `v0.0.1.md` 在里面了。
 
-## 项目结构调整           | 2026.8.9
+## 项目结构调整          | 2026.8.9
 为了方便以后添加一些新的“草稿笔记”，我在 `notebooks/` 下新建了一个 `/scratch` 文件夹，我在里面新建了 `git.md` ，用于记录学习 git 的笔记，还把原来的 `flowtest.ipynb` 和 `learn-pytest/` 一同放进去了，这样在 .gitignore 里就只需要写 /notebooks/scratch/，这样就不需要挨个枚举草稿笔记了。`.gitignore` 已做同步更新。
 
-## 添加亮度增益算法 HE、CLAHE   | 2026.8.11
+## 添加亮度增益算法      | 2026.8.11
 - 新增 `algorithms/histogram.py`，源代码，包括 HE 和 CLAHE 两个方法
 - 更新 `algorithms/__init__.py`，新增声明 `from . import histogram` 
 - 修改 `lightness.boost()` 和 `gamma()`，参数调整
@@ -158,3 +158,9 @@ Pipeline 包括整个处理流程
     - `gamma(img_gray) -> gamma(channel, exponent: float = 0.5)`
 - 更新 `notebooks/Algorithms/Histogram/`，相关学习笔记
 - 更新 `Dev_log.md`
+
+## 开始分析数据集       | 2026.8.13
+尝试写新的亮度增益算法时遇到了“but wait moment”，亮度增益的目标是输出亮度信息与真实正常光照环境下相近的图像，需要研究低光照图像与正常光照图像的亮度差异。
+
+## 添加 debug 文档      | 2026.8.18
+在 `docs/` 下添加 `debug_notes/` 文件夹，记录问题和 debug 过程。
