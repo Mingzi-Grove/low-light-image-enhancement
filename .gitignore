@@ -10,7 +10,11 @@ __pycache__/
 /CLAUDE.md
 
 # 数据集和大文件
-/data/
+/data/mine/
+/data/renoir/
+/data/lol/*
+!/data/lol/*.py
+!/data/lol/*.ipynb
 
 # CLI 工具的输出图像
 /examples/output/*

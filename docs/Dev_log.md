@@ -164,3 +164,6 @@ Pipeline 包括整个处理流程
 
 ## 添加 debug 文档      | 2026.8.18
 在 `docs/` 下添加 `debug_notes/` 文件夹，记录问题和 debug 过程。
+
+## 分析数据集           | 2026.8.22
+[analysis.ipynb](../data/lol/analysis.ipynb) 对比 LOL 数据集中亮暗样本的 Lightness 差异，寻找亮度增益的规律
