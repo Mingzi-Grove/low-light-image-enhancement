@@ -21,7 +21,7 @@ def kaga(channel: numpy.ndarray, gamma: float = 0.35, k: float = 1.45, upper_lim
     Returns:
         numpy.ndarray: img_gray, float32, [0, 1]
     """
-    gain_map = k * numpy.power(channel, gamma - 1).clip(0, upper_limit)
+    gain_map = (k * numpy.power(channel, gamma - 1)).clip(0, upper_limit)
     channel_gained = (channel * gain_map).clip(0, 1)
     return channel_gained
         
