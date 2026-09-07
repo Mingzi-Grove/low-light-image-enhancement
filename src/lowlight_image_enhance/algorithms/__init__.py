@@ -1,2 +1,2 @@
-from .gamma import gamma
+from . import curves
 from . import histogram

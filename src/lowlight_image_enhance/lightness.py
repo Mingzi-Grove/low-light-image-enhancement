@@ -21,7 +21,7 @@ def boost(L_layer: numpy.ndarray) -> BoostResult:
     Returns:
         BoostResult: L layer after boosting and the delta map (boosted - original).
     """
-    L_boosted = algorithms.gamma(L_layer)
+    L_boosted = algorithms.curves.gamma(L_layer)
     delta_L = L_boosted - L_layer
     return BoostResult(L_boosted, delta_L)
     

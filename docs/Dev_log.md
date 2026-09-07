@@ -167,3 +167,8 @@ Pipeline 包括整个处理流程
 
 ## 分析数据集           | 2026.8.22
 [analysis.ipynb](../data/lol/analysis.ipynb) 对比 LOL 数据集中亮暗样本的 Lightness 差异，寻找亮度增益的规律
+
+## 探究新的亮度增益算法 | 2026.8.31 - 2026.9.7
+- 绘图分析工具
+- kaga 算法原型
+- 笔记与文档

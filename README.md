@@ -35,6 +35,10 @@
 ## 当前状态
 v0.0.1，小项目刚刚起步，框架已经搭好了，CLI 接口可以调用。亮度增益和饱和度补偿的算法在用简单的 gamma 和线性增益占位，详见版本说明 [v0.0.1](docs/releases/v0.0.1.md)。
 
+### 新的亮度增益算法开发中
+通过[亮度分析工具](./src/lowlight_image_enhance/analysis/ana_light.py)分析 LOL 数据集中低光照图像与正常图像的亮度差异并总结规律。摸索一种改进的 Gamma 增益算法 [Kaga](./notebooks/Algorithms/Kaga/Kaga.md)，下图展示了 Kaga 和 HE、Gamma算法的亮度增益效果，首行是 LOL 数据集中正常图像与对应低光照图像的亮度对比。![多算法亮度对比分析](docs/images/ana_lightbosst_algorithms.png)
+
+
 ## 快速开始
 ```bash
 pip install -e .
@@ -60,12 +64,16 @@ Low-Light-Image-Enhancement/
 │   ├── metrics.py                 # 评估指标
 │   ├── utils.py                   # 工具函数
 │   ├── cli.py                     # 命令行入口
-│   └── algorithms/                # 处理算法
-│       ├── __init__.py
-│       └── gamma.py               # Gamma 校正
+│   ├── algorithms/                # 处理算法
+│   │   ├── __init__.py
+│   │   ├── curves.py             # 幂曲线家族（gamma / kaga）
+│   │   └── histogram.py          # 直方图法（HE / CLAHE）
+│   └── analysis/                  # 分析/对比工具
+│        ├── __init__.py
+│        └── ana_light.py          # 亮度分析/对比图
 │
 ├── tests/                          # 单元测试
-├── notebooks/                      # Jupyter Notebook
+├── notebooks/                      # 学习和探索的笔记
 ├── examples/                       # 示例图片
 └── docs/                           # 文档
 ```
