@@ -172,3 +172,11 @@ Pipeline 包括整个处理流程
 - 绘图分析工具
 - kaga 算法原型
 - 笔记与文档
+
+## 新增三维图像评价指标计算适配和对应测试 | 2026.10.28
+- metrics.py
+    - 新增了 psnr_bgr 和 ssim_bgr 用于计算 RGB 彩色图像
+    - 为计算函数添加了错误检查
+    - 修改了 ssim 在图像边缘的计算逻辑，对齐 Wang 2004 的计算方法
+- test_metrics.py
+- examples/fortest/

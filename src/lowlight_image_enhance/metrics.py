@@ -5,7 +5,7 @@ import cv2
 
 def psnr(reference: numpy.ndarray, target: numpy.ndarray, max_value: float = 1.0) -> float:
     """
-    Compute the Peak Signal-to-Noise Ratio (PSNR) between two channels.
+    Compute PSNR for gray images.
     Args:
         reference (numpy.ndarray): Reference channel.
         target (numpy.ndarray): Target channel to compare.
@@ -13,10 +13,43 @@ def psnr(reference: numpy.ndarray, target: numpy.ndarray, max_value: float = 1.0
     Returns:
         float: PSNR value in decibels (dB).
     """
+    if (reference.shape != target.shape) or (reference.ndim != 2):
+        raise ValueError("Input images must be gray images (1 channel).")
+    if (reference.dtype != target.dtype) or (reference.dtype != numpy.float32):
+        raise ValueError("Input images must be of type numpy.float32.")
+
     mse = numpy.mean((reference - target) ** 2)
     if mse == 0:
         return float('inf')  # No noise
     psnr_value = 10 * numpy.log10(max_value ** 2 / mse)
+    return psnr_value
+
+def psnr_bgr(reference: numpy.ndarray, target: numpy.ndarray, max_value: float = 1.0) -> float:
+    """
+    Compute PSNR for BGR images.
+    Args:
+        reference (numpy.ndarray): Reference BGR image.
+        target (numpy.ndarray): Target BGR image to compare.
+        max_value (float): The maximum possible pixel value in the images. Defaults to 1.0.
+    Returns:
+        float: PSNR value in decibels (dB).
+    """
+    if reference.shape != target.shape or reference.shape[2:] != (3,):
+        raise ValueError("Input images must be BGR (3 channels).")
+    if (reference.dtype != target.dtype) or (reference.dtype != numpy.float32):
+        raise ValueError("Input images must be of type numpy.float32.")
+    
+    # Caculate mean MSE for each channel
+    mse_b = numpy.mean((reference[:, :, 0] - target[:, :, 0]) ** 2)
+    mse_g = numpy.mean((reference[:, :, 1] - target[:, :, 1]) ** 2)
+    mse_r = numpy.mean((reference[:, :, 2] - target[:, :, 2]) ** 2)
+    mse = (mse_b + mse_g + mse_r) / 3.0
+
+    # Caculate PSNR
+    if mse == 0:
+        return float('inf')  # No noise
+    psnr_value = 10 * numpy.log10(max_value ** 2 / mse)
+
     return psnr_value
 
 def ssim(reference: numpy.ndarray, target: numpy.ndarray, window_size: int = 11, sigma: float = 1.5, max_value: float = 1.0) -> float:
@@ -31,6 +64,13 @@ def ssim(reference: numpy.ndarray, target: numpy.ndarray, window_size: int = 11,
     Returns:
         float: SSIM value.
     """
+    if (window_size <= 0) or (window_size % 2 == 0):
+        raise ValueError("window_size must be a positive odd integer.")
+    if (reference.shape != target.shape) or (reference.ndim != 2):
+        raise ValueError("Input images must be gray images (1 channel).")
+    if (reference.dtype != target.dtype) or (reference.dtype != numpy.float32):
+        raise ValueError("Input images must be of type numpy.float32.")
+
     # 1. 计算稳定常数 C，防止除零（K1 = 0.01， K2 = 0.03）
     c1 = (0.01 * max_value) ** 2
     c2 = (0.03 * max_value) ** 2
@@ -56,6 +96,35 @@ def ssim(reference: numpy.ndarray, target: numpy.ndarray, window_size: int = 11,
 
     # 4. 计算 SSIM map 并取均值
     ssim_map = l * cs
+
+    pad = (window_size - 1) // 2 
+    if ssim_map.shape[0] > 2 * pad and ssim_map.shape[1] > 2 * pad:
+        ssim_map = ssim_map[pad:-pad, pad:-pad]
+
     ssim_value = float(numpy.mean(ssim_map))
 
     return ssim_value
+
+def ssim_bgr(reference: numpy.ndarray, target: numpy.ndarray, window_size: int = 11, sigma: float = 1.5, max_value: float = 1.0) -> float:
+    """
+    Compute SSIM for BGR images.
+    Args:
+        reference (numpy.ndarray): Reference BGR image.
+        target (numpy.ndarray): Target BGR image to compare.
+        window_size (int): Size of the window used for SSIM calculation. Defaults to 11.
+        sigma (float): Standard deviation for the Gaussian kernel. Defaults to 1.5.
+        max_value (float): The maximum possible pixel value in the images. Defaults to 1.0.
+    Returns:
+        float: SSIM value.
+    """
+    if reference.shape != target.shape or reference.shape[2:] != (3,):
+        raise ValueError("Input images must be BGR (3 channels).")
+    if (reference.dtype != target.dtype) or (reference.dtype != numpy.float32):
+        raise ValueError("Input images must be of type numpy.float32.")
+
+    # Calculate SSIM for each channel and average
+    ssim_b = ssim(reference[:, :, 0], target[:, :, 0], window_size, sigma, max_value)
+    ssim_g = ssim(reference[:, :, 1], target[:, :, 1], window_size, sigma, max_value)
+    ssim_r = ssim(reference[:, :, 2], target[:, :, 2], window_size, sigma, max_value)
+
+    return (ssim_b + ssim_g + ssim_r) / 3.0
